@@ -1,12 +1,19 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/business_logic/cubit/bloc_observer.dart';
 import 'package:rick_and_morty/constants/app_colors.dart';
 import 'package:rick_and_morty/presentation/app_routes.dart';
 import 'package:rick_and_morty/presentation/theme/generate_color.dart';
 
 void main() {
-  runApp(RickMorty(
-    appRoutes: AppRoutes(),
-  ));
+  BlocOverrides.runZoned(
+    () {
+      runApp(RickMorty(
+        appRoutes: AppRoutes(),
+      ));
+    },
+    blocObserver: MyBlocObserver(),
+  );
 }
 
 class RickMorty extends StatelessWidget {

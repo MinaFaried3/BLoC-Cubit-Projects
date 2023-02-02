@@ -14,8 +14,7 @@ class AppRoutes extends Equatable {
 
   AppRoutes() {
     _charactersRepository = CharactersRepository(CharacterWebService());
-    _charactersCubit = CharactersCubit(_charactersRepository)
-      ..getAllCharacters();
+    _charactersCubit = CharactersCubit(_charactersRepository);
   }
 
   Route generateRoute(RouteSettings settings) {
