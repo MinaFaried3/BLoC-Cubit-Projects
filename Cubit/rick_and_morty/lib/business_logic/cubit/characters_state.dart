@@ -23,3 +23,21 @@ class CharactersLoaded extends CharactersState {
   @override
   List<Object> get props => [characters];
 }
+
+class SearchCharacters extends CharactersState {
+  final List<Character> searchedCharacters;
+
+  const SearchCharacters(this.searchedCharacters);
+
+  @override
+  List<Object> get props => [searchedCharacters];
+}
+
+class Search extends CharactersState {
+  final bool isSearch;
+
+  const Search(this.isSearch);
+
+  @override
+  List<Object> get props => [isSearch];
+}
