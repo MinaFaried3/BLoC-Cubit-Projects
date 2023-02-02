@@ -9,6 +9,12 @@ class CharactersInitial extends CharactersState {
   List<Object> get props => [];
 }
 
+class CharacterLoading extends CharactersState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
 class CharactersLoaded extends CharactersState {
   final List<Character> characters;
 

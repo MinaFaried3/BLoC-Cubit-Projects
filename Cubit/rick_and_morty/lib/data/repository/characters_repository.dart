@@ -12,12 +12,10 @@ class CharactersRepository extends Equatable {
     try {
       final results = await _characterWebService.getAllCharacters();
 
-      return results
-          .map((character) => Character.fromJson(character))
-          .cast<Character>()
-          .toList();
+      return results.map((character) => Character.fromJson(character)).toList();
     } catch (error) {
       printK(error.toString());
+      printK("ERROR");
       return [];
     }
   }
