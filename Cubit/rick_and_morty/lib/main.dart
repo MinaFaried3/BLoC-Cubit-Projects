@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty/presentation/app_routes.dart';
 
 void main() {
-  runApp(const RickMorty(
+  runApp(RickMorty(
     appRoutes: AppRoutes(),
   ));
 }
@@ -17,6 +17,7 @@ class RickMorty extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rick and Morty',
+      theme: ThemeData(useMaterial3: true),
       onGenerateRoute: appRoutes.generateRoute,
     );
   }

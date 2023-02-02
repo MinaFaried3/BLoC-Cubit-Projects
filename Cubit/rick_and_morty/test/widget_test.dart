@@ -13,7 +13,7 @@ import 'package:rick_and_morty/presentation/app_routes.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const RickMorty(
+    await tester.pumpWidget(RickMorty(
       appRoutes: AppRoutes(),
     ));
 
