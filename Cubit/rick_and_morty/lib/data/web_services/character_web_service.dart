@@ -27,11 +27,12 @@ class CharacterWebService extends Equatable {
     }
   }
 
-  Future<List<dynamic>> getAllCharacters() async {
+  Future<List> getAllCharacters() async {
     try {
       Response response = await dio.get(characters);
-      return response.data;
+      return response.data['results'];
     } catch (error) {
+      printK(error.toString());
       printK(error.toString());
       return [];
     }

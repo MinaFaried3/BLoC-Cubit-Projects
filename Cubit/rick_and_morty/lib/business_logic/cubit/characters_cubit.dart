@@ -13,11 +13,9 @@ class CharactersCubit extends Cubit<CharactersState> {
   late final List<Character> _characters;
 
   Future<List<Character>> getAllCharacters() async {
-    _charactersRepository.getAllCharacters().then((characters) {
-      emit(CharactersLoaded(characters));
-      _characters = characters;
-    });
-
+    emit(CharacterLoading());
+    _characters = await _charactersRepository.getAllCharacters();
+    emit(CharactersLoaded(_characters));
     return _characters;
   }
 }
