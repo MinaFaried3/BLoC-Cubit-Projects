@@ -82,12 +82,12 @@ class CharacterDetailsScreen extends StatelessWidget {
           _buildDivider(290),
           _buildTileInfo(
             title: "location",
-            description: character.location.name,
+            description: character.location!.name,
           ),
           _buildDivider(280),
           _buildTileInfo(
             title: "origin",
-            description: character.origin.name,
+            description: character.origin!.name,
           ),
           _buildDivider(300),
           _buildTileInfo(

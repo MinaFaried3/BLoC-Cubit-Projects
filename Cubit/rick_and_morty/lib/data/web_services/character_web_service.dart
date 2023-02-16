@@ -4,12 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:rick_and_morty/constants/app_strings.dart';
 
-const String characters = 'character';
+abstract class CharacterWebService extends Equatable {
+  Future<Response> get(String url);
+}
 
-class CharacterWebService extends Equatable {
+class CharacterWebServiceImpl extends CharacterWebService {
   late final Dio dio;
 
-  CharacterWebService() {
+  CharacterWebServiceImpl() {
     BaseOptions baseOptions = BaseOptions(
         baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
@@ -27,17 +29,13 @@ class CharacterWebService extends Equatable {
     }
   }
 
-  Future<List> getAllCharacters() async {
-    try {
-      Response response = await dio.get(characters);
-      return response.data['results'];
-    } catch (error) {
-      printK(error.toString());
-      printK(error.toString());
-      return [];
-    }
-  }
-
   @override
   List<Object> get props => [dio];
+
+  @override
+  Future<Response> get(String url) async {
+    final response = await dio.get(url);
+    //if(response.statusCode == 401) _goToLoginPage();
+    return response;
+  }
 }
