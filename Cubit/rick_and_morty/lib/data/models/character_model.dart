@@ -7,8 +7,8 @@ class Character extends Equatable {
   final String species;
   final String type;
   final String gender;
-  final Origin origin;
-  final Location location;
+  final Origin? origin;
+  final Location? location;
   final String image;
   final String url;
   final String created;
@@ -20,8 +20,8 @@ class Character extends Equatable {
       required this.species,
       required this.type,
       required this.gender,
-      required this.origin,
-      required this.location,
+      this.origin,
+      this.location,
       required this.image,
       required this.url,
       required this.created});
@@ -41,7 +41,7 @@ class Character extends Equatable {
       );
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         status,
@@ -54,6 +54,22 @@ class Character extends Equatable {
         url,
         created,
       ];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'species': species,
+      'type': type,
+      'gender': gender,
+      "origin": origin?.toMap(),
+      "location": location?.toMap(),
+      'image': image,
+      'url': url,
+      'created': created,
+    };
+  }
 }
 
 class Origin extends Equatable {
@@ -67,6 +83,13 @@ class Origin extends Equatable {
 
   @override
   List<Object> get props => [name, url];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'url': url,
+    };
+  }
 }
 
 class Location extends Equatable {
@@ -80,4 +103,10 @@ class Location extends Equatable {
 
   @override
   List<Object> get props => [name, url];
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'url': url,
+    };
+  }
 }
