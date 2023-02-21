@@ -15,7 +15,6 @@ void main() {
   setUp(() {
     mockCharactersRepository = MockCharactersRepository();
     charactersCubit = CharactersCubit(mockCharactersRepository);
-    charactersCubit.getAllCharacters();
   });
 
   test("test getAllCharacters must return List<Characters>", () async {
@@ -67,12 +66,32 @@ void main() {
 
   test("test searchChanges()", () async {
     //arrange
+    final List<Character> characters = List.generate(
+        5,
+        (index) => Character(
+              id: index,
+              name: "name $index",
+              status: "status $index",
+              species: "species $index",
+              type: "type $index",
+              location: Location(name: "name $index", url: "url $index"),
+              origin: Origin(name: "name $index", url: "url $index"),
+              gender: "gender $index",
+              image: "image $index",
+              url: "url $index",
+              created: "created $index",
+            ));
+
+    when(charactersCubit.getAllCharacters())
+        .thenAnswer((_) => Future.value(characters));
+
     const bool isSearch = false;
-    final List<Character> characters = [];
+    final List<Character> wantedCharacters =
+        await charactersCubit.getAllCharacters();
 
     final expectedStates = [
       const Search(isSearch),
-      CharactersLoaded(characters)
+      CharactersLoaded(wantedCharacters)
     ];
 
     //assert
@@ -80,5 +99,102 @@ void main() {
 
     //act
     charactersCubit.searchChanges();
+  });
+
+  test("test searchCharactersStarWith() results", () async {
+    //arrange
+    final List<Character> characters = List.generate(
+        5,
+        (index) => Character(
+              id: index,
+              name: index % 2 == 0 ? "even $index" : "odd $index",
+              status: "status $index",
+              species: "species $index",
+              type: "type $index",
+              location: Location(name: "name $index", url: "url $index"),
+              origin: Origin(name: "name $index", url: "url $index"),
+              gender: "gender $index",
+              image: "image $index",
+              url: "url $index",
+              created: "created $index",
+            ));
+
+    when(charactersCubit.getAllCharacters())
+        .thenAnswer((_) => Future.value(characters));
+    await charactersCubit.getAllCharacters();
+    charactersCubit.startSearch();
+
+    final List<Character> expectedCharacters = [
+      for (int index = 0; index <= 5; index += 2)
+        Character(
+          id: index,
+          name: "even $index",
+          status: "status $index",
+          species: "species $index",
+          type: "type $index",
+          location: Location(name: "name $index", url: "url $index"),
+          origin: Origin(name: "name $index", url: "url $index"),
+          gender: "gender $index",
+          image: "image $index",
+          url: "url $index",
+          created: "created $index",
+        )
+    ];
+
+    //act
+    const String name = "EveN";
+    final actualCharacters = charactersCubit.searchCharactersStarWith(name);
+
+    //asset
+    expect(actualCharacters, expectedCharacters);
+  });
+
+  test("test searchCharactersStarWith() states", () async {
+    //arrange
+    final List<Character> characters = List.generate(
+        5,
+        (index) => Character(
+              id: index,
+              name: index % 2 == 0 ? "even $index" : "odd $index",
+              status: "status $index",
+              species: "species $index",
+              type: "type $index",
+              location: Location(name: "name $index", url: "url $index"),
+              origin: Origin(name: "name $index", url: "url $index"),
+              gender: "gender $index",
+              image: "image $index",
+              url: "url $index",
+              created: "created $index",
+            ));
+
+    when(charactersCubit.getAllCharacters())
+        .thenAnswer((_) => Future.value(characters));
+    await charactersCubit.getAllCharacters();
+    charactersCubit.startSearch();
+
+    final List<Character> expectedCharacters = [
+      for (int index = 0; index <= 5; index += 2)
+        Character(
+          id: index,
+          name: "even $index",
+          status: "status $index",
+          species: "species $index",
+          type: "type $index",
+          location: Location(name: "name $index", url: "url $index"),
+          origin: Origin(name: "name $index", url: "url $index"),
+          gender: "gender $index",
+          image: "image $index",
+          url: "url $index",
+          created: "created $index",
+        )
+    ];
+
+    //asset
+    final expectedStates = [SearchCharacters(expectedCharacters)];
+    expectLater(charactersCubit.stream, emitsInAnyOrder(expectedStates));
+
+    //act
+    const String name = "EveN";
+    charactersCubit.searchCharactersStarWith(name);
   });
 }

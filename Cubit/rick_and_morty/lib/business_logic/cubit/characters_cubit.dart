@@ -10,7 +10,7 @@ class CharactersCubit extends Cubit<CharactersState> {
 
   CharactersCubit(this._charactersRepository) : super(CharactersInitial());
 
-  late final List<Character> _characters;
+  late List<Character> _characters;
   late List<Character> _searchedCharacters;
   bool isSearch = false;
 

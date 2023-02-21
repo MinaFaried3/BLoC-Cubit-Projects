@@ -6,8 +6,8 @@ const String charactersUrl = '${baseUrl}character';
 const String charactersScreen = '/';
 const String characterDetailsScreen = '/character_details';
 
-void printK(String string) {
+void printK(Object printed) {
   if (kDebugMode) {
-    print(string);
+    print(printed);
   }
 }
