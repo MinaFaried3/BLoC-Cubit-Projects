@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/assets.dart';
+import 'package:bookly/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({Key? key}) : super(key: key);
@@ -14,6 +19,44 @@ class _SplashViewBodyState extends State<SplashViewBody>
   late final Animation<Offset> slidingAnimation;
   late final Animation<double> fadingAnimation;
   late final CurvedAnimation curvedAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    initAnimation();
+    navigateToHome();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        buildFadeLogoTransition(fadingAnimation),
+        buildSlidedTextTransition(slidingAnimation),
+      ],
+    );
+  }
+
+  void navigateToHome() {
+    Timer timer = Timer(
+      const Duration(seconds: 4),
+      () {
+        Get.to(
+          const HomeView(),
+          transition: Transition.fadeIn,
+          duration: kTransitionDuration,
+        );
+      },
+    );
+  }
 
   void initAnimation() {
     animationController = AnimationController(
@@ -36,30 +79,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
     // don't needed because of the animation builder
     // slidingAnimation.addListener(() {});
     // fadingAnimation.addListener(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initAnimation();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    animationController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        buildFadeLogoTransition(fadingAnimation),
-        buildSlidedTextTransition(slidingAnimation),
-      ],
-    );
   }
 
   Widget buildSlidedTextTransition(Animation<Offset> animation) {
