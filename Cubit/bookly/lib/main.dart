@@ -1,5 +1,5 @@
 import 'package:bookly/constants.dart';
-import 'package:bookly/features/splash/presentation/views/splash_view.dart';
+import 'package:bookly/features/home/presentation/views/home_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +34,7 @@ class BooklyApp extends StatelessWidget {
           PointerDeviceKind.unknown,
         },
       ),
-      home: const SplashView(),
+      home: const HomeView(),
     );
   }
 }

@@ -13,15 +13,29 @@ class HomeViewBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const FeaturedBooksListView(),
+        SizedBox(
+          height: height * 0.3,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              SizedBox(
+                width: width * 0.07,
+              ),
+              const FeaturedBooksListView(),
+            ],
+          ),
+        ),
         SizedBox(
           height: height * 0.07,
         ),
-        const Text(
-          'Best Seller',
-          style: Styles.textStyle18,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.07),
+          child: const Text(
+            'Best Seller',
+            style: Styles.textStyle18,
+          ),
         ),
-        BestSellerItem()
+        const BestSellerItem()
       ],
     );
   }
@@ -34,58 +48,67 @@ class BestSellerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.009,
-          horizontal: MediaQuery.of(context).size.width * 0.07),
-      child: Row(
-        children: [
-          Expanded(
-              flex: 1,
-              child: Image.asset(
-                AssetsData.testImage,
-                fit: BoxFit.cover,
-              )),
-          SizedBox(
-            width: 10,
-          ),
-          Expanded(
-              flex: 3,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Harry Potter and the Goblet of Fire",
-                    style: Styles.textStyle20,
-                    maxLines: 2,
+        vertical: MediaQuery.of(context).size.height * 0.009,
+        horizontal: MediaQuery.of(context).size.width * 0.07,
+      ),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.15,
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: AspectRatio(
+                  aspectRatio: 2.3 / 4.1,
+                  child: Image.asset(
+                    AssetsData.testImage,
+                    fit: BoxFit.cover,
                   ),
-                  Text(
-                    "J.K Rowling",
-                    style: Styles.textStyle20.copyWith(color: Colors.white54),
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        "19.99 \$",
-                        style: Styles.textStyle24,
-                      ),
-                      const Spacer(),
-                      const Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      ),
-                      RichText(
-                          text: TextSpan(children: [
-                        const TextSpan(text: '4.8 ', style: Styles.textStyle20),
-                        TextSpan(
-                          text: '(2569)',
-                          style: Styles.textStyle20
-                              .copyWith(color: Colors.white54),
+                )),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                flex: 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Harry Potter and the Goblet of Fire",
+                      style: Styles.textStyle20,
+                      maxLines: 2,
+                    ),
+                    Text(
+                      "J.K Rowling",
+                      style: Styles.textStyle20.copyWith(color: Colors.white54),
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "19.99 \$",
+                          style: Styles.textStyle24,
                         ),
-                      ]))
-                    ],
-                  )
-                ],
-              )),
-        ],
+                        const Spacer(),
+                        const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          const TextSpan(
+                              text: ' 4.8 ', style: Styles.textStyle20),
+                          TextSpan(
+                            text: '(2569)',
+                            style: Styles.textStyle20
+                                .copyWith(color: Colors.white54),
+                          ),
+                        ]))
+                      ],
+                    )
+                  ],
+                )),
+          ],
+        ),
       ),
     );
   }

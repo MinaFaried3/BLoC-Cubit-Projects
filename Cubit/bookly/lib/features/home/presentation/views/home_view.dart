@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: buildMainAppBar(height, width),
+      appBar: buildMainAppBar(height, width, context),
       body: const HomeViewBody(),
     );
   }
